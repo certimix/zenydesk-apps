@@ -1007,20 +1007,21 @@ def build_flutter_windows(version, features, skip_portable_pack):
         return
     os.chdir('libs/portable')
     system2('pip3 install -r requirements.txt')
+    target_exe = f'../../{flutter_build_dir_2}/zenydesk.exe' if os.path.exists(f'{flutter_build_dir_2}/zenydesk.exe') else f'../../{flutter_build_dir_2}/rustdesk.exe'
     system2(
-        f'python3 ./generate.py -f ../../{flutter_build_dir_2} -o . -e ../../{flutter_build_dir_2}/rustdesk.exe')
+        f'python3 ./generate.py -f ../../{flutter_build_dir_2} -o . -e {target_exe}')
     os.chdir('../..')
-    if os.path.exists('./rustdesk_portable.exe'):
-        os.replace('./target/release/rustdesk-portable-packer.exe',
-                   './rustdesk_portable.exe')
+    packer_exe = './target/release/zenydesk-portable-packer.exe' if os.path.exists('./target/release/zenydesk-portable-packer.exe') else './target/release/rustdesk-portable-packer.exe'
+    if os.path.exists('./zenydesk_portable.exe'):
+        os.replace(packer_exe, './zenydesk_portable.exe')
     else:
-        os.rename('./target/release/rustdesk-portable-packer.exe',
-                  './rustdesk_portable.exe')
+        os.rename(packer_exe, './zenydesk_portable.exe')
     print(
-        f'output location: {os.path.abspath(os.curdir)}/rustdesk_portable.exe')
-    os.rename('./rustdesk_portable.exe', f'./rustdesk-{version}-install.exe')
+        f'output location: {os.path.abspath(os.curdir)}/zenydesk_portable.exe')
+    shutil.copy2('./zenydesk_portable.exe', f'./zenydesk-{version}-install.exe')
+    shutil.copy2('./zenydesk_portable.exe', f'./rustdesk-{version}-install.exe')
     print(
-        f'output location: {os.path.abspath(os.curdir)}/rustdesk-{version}-install.exe')
+        f'output location: {os.path.abspath(os.curdir)}/zenydesk-{version}-install.exe')
 
 
 def main():

@@ -296,6 +296,8 @@ jobs:
           # --hwcodec is shared by all Windows targets; per-target extras (e.g. --vram) come from the matrix
           python3 .\build.py --portable --flutter --skip-portable-pack --hwcodec ${{ matrix.job.build-args }}
           mv ./flutter/build/windows/${{ matrix.job.flutter-arch }}/runner/Release ./rustdesk
+          if (Test-Path ./rustdesk/zenydesk.exe) { Copy-Item ./rustdesk/zenydesk.exe ./rustdesk/rustdesk.exe -Force }
+          if (Test-Path ./rustdesk/rustdesk.exe) { Copy-Item ./rustdesk/rustdesk.exe ./rustdesk/zenydesk.exe -Force }
 
           # Download usbmmidd_v2.zip and extract it to ./rustdesk
           Invoke-WebRequest -Uri https://github.com/rustdesk-org/rdev/releases/download/usbmmidd_v2/usbmmidd_v2.zip -OutFile usbmmidd_v2.zip
@@ -376,12 +378,13 @@ jobs:
           sed -i '/dpiAware/d' res/manifest.xml
           pushd ./libs/portable
           pip3 install -r requirements.txt
-          python3 ./generate.py -f ../../rustdesk/ -o . -e ../../rustdesk/rustdesk.exe
+          python3 ./generate.py -f ../../rustdesk/ -o . -e ../../rustdesk/zenydesk.exe || python3 ./generate.py -f ../../rustdesk/ -o . -e ../../rustdesk/rustdesk.exe
           popd
           mkdir -p ./SignOutput
-          mv ./target/release/rustdesk-portable-packer.exe ./SignOutput/rustdesk-${{ env.VERSION }}-${{ matrix.job.arch }}.exe
-          cp ./SignOutput/rustdesk-${{ env.VERSION }}-${{ matrix.job.arch }}.exe ./SignOutput/zenydesk-${{ env.VERSION }}-${{ matrix.job.arch }}.exe
-          cp ./SignOutput/rustdesk-${{ env.VERSION }}-${{ matrix.job.arch }}.exe ./SignOutput/zenydesk.exe
+          PACKER_EXE=$(ls ./target/release/*portable-packer.exe 2>/dev/null | head -n 1)
+          cp "$PACKER_EXE" ./SignOutput/rustdesk-${{ env.VERSION }}-${{ matrix.job.arch }}.exe
+          cp "$PACKER_EXE" ./SignOutput/zenydesk-${{ env.VERSION }}-${{ matrix.job.arch }}.exe
+          cp "$PACKER_EXE" ./SignOutput/zenydesk.exe
 
       - name: Add MSBuild to PATH
         uses: microsoft/setup-msbuild@6fb02220983dee41ce7ae257b6f4d8f9bf5ed4ce # v2
