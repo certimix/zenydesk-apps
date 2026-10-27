@@ -2514,9 +2514,9 @@ jobs:
             flatpak/rustdesk-${{ env.VERSION }}-${{ matrix.job.arch }}${{ matrix.job.suffix }}.flatpak
             flatpak/zenydesk-${{ env.VERSION }}-${{ matrix.job.arch }}${{ matrix.job.suffix }}.flatpak
 
-  build-rustdesk-web:
+  build-zenydesk-web:
     if: False
-    name: build-rustdesk-web
+    name: build-zenydesk-web
     runs-on: ubuntu-22.04
     permissions:
       contents: read
