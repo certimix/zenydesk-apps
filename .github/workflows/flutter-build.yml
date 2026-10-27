@@ -1,4 +1,4 @@
-name: Build the flutter version of the RustDesk
+name: Build ZenyDesk Multiplatform Clients
 
 on:
   workflow_call:
@@ -585,7 +585,7 @@ jobs:
 
   build-rustdesk-ios:
     if: ${{ inputs.upload-artifact }}
-    name: build rustdesk ios ipa
+    name: build zenydesk ios ipa
     runs-on: ${{ matrix.job.os }}
     needs: [generate-bridge]
     strategy:
@@ -1013,7 +1013,7 @@ jobs:
 
   build-rustdesk-android:
     needs: [generate-bridge]
-    name: build rustdesk android apk ${{ matrix.job.target }}
+    name: build zenydesk android apk ${{ matrix.job.target }}
     runs-on: ${{ matrix.job.os }}
     strategy:
       fail-fast: false
@@ -1315,7 +1315,7 @@ jobs:
 
   build-rustdesk-android-universal:
     needs: [build-rustdesk-android]
-    name: build rustdesk android universal apk
+    name: build zenydesk android universal apk
     if: ${{ inputs.upload-artifact }}
     runs-on: ubuntu-24.04
     env:
@@ -1509,7 +1509,7 @@ jobs:
 
   build-rustdesk-linux:
     needs: [generate-bridge]
-    name: build rustdesk linux ${{ matrix.job.target }}
+    name: build zenydesk linux ${{ matrix.job.target }}
     runs-on: ${{ matrix.job.on }}
     strategy:
       fail-fast: false
@@ -1865,7 +1865,7 @@ jobs:
   # flatpak need that job, and a failure here must not skip them.
   build-rustdesk-linux-drm:
     needs: [generate-bridge]
-    name: build rustdesk linux drm x86_64
+    name: build zenydesk linux drm x86_64
     runs-on: ubuntu-22.04
     continue-on-error: true
     steps:
@@ -2136,7 +2136,7 @@ jobs:
   build-rustdesk-linux-sciter:
     if: ${{ inputs.upload-artifact }}
     runs-on: ${{ matrix.job.on }}
-    name: build-rustdesk-linux-sciter ${{ matrix.job.target }}
+    name: build-zenydesk-linux-sciter ${{ matrix.job.target }}
     continue-on-error: true
     strategy:
       fail-fast: false
