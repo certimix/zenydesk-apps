@@ -1128,20 +1128,21 @@ void showThemeSettings(OverlayDialogManager dialogManager) async {
 void showAbout(OverlayDialogManager dialogManager) {
   dialogManager.show((setState, close, context) {
     return CustomAlertDialog(
-      title: Text(translate('About RustDesk').replaceAll('RustDesk', 'ZenyDesk')),
+      title: const Text('Sobre o ZenyDesk'),
       content: Wrap(direction: Axis.vertical, spacing: 12, children: [
-        Text('Version: $version'),
-        Text(translate('powered_by_me')),
+        Text('Versão: $version'),
+        const Text('Desenvolvido por ZenyDesk Tecnologia'),
         InkWell(
             onTap: () async {
               const url = 'https://zenydesk.com/';
               await launchUrl(Uri.parse(url));
             },
-            child: Padding(
+            child: const Padding(
               padding: EdgeInsets.symmetric(vertical: 8),
-              child: Text('zenydesk.com',
+              child: Text('https://zenydesk.com',
                   style: TextStyle(
                     decoration: TextDecoration.underline,
+                    color: Color(0xFF2563EB),
                   )),
             )),
       ]),

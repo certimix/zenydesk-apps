@@ -2449,7 +2449,7 @@ class _AboutState extends State<_About> {
                   child: Text('${translate('ID')}: $myId')
                       .marginSymmetric(vertical: 4.0)),
               SelectionArea(
-                  child: Text(translate('powered_by_me'))
+                  child: const Text('Desenvolvido por ZenyDesk Tecnologia')
                       .marginSymmetric(vertical: 4.0)),
               InkWell(
                   onTap: () {

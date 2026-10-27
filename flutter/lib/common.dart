@@ -29,6 +29,7 @@ import 'package:window_manager/window_manager.dart';
 import 'package:window_size/window_size.dart' as window_size;
 
 import '../consts.dart';
+import 'common/zenydesk_guard.dart';
 import 'common/widgets/overlay.dart';
 import 'mobile/pages/file_manager_page.dart';
 import 'mobile/pages/remote_page.dart';
@@ -700,6 +701,7 @@ String formatDurationToTime(Duration duration) {
 }
 
 closeConnection({String? id}) {
+  ZenydeskGuard.stopHeartbeat();
   if (isAndroid || isIOS) {
     () async {
       await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
@@ -2599,6 +2601,16 @@ connect(BuildContext context, String id,
     } catch (_) {}
   }
   id = id.replaceAll(' ', '');
+
+  if (!await ZenydeskGuard.preConnectCheck(
+    context,
+    id,
+    isTerminal: isTerminal,
+    isFileTransfer: isFileTransfer,
+  )) {
+    return;
+  }
+
   final oldId = id;
   id = await bind.mainHandleRelayId(id: id);
   forceRelay = id != oldId || forceRelay;

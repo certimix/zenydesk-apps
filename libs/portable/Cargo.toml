@@ -1,6 +1,6 @@
 [package]
 name = "zenydesk-portable-packer"
-version = "1.4.9"
+version = "1.5.7"
 edition = "2021"
 description = "ZenyDesk Remote Desktop"
 

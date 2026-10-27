@@ -38,6 +38,14 @@ class UserModel {
     return '$preferred (@$username)';
   }
 
+  String get userPlan {
+    final info = getLocalUserInfo();
+    if (info != null && info['info'] != null && info['info']['plan'] != null) {
+      return (info['info']['plan'] as String).toLowerCase().trim();
+    }
+    return 'free';
+  }
+
   WeakReference<FFI> parent;
 
   UserModel(this.parent) {
