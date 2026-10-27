@@ -69,13 +69,11 @@ def apply_zenydesk_config():
             )
             with open(config_path, 'w', encoding='utf-8') as f:
                 f.write(content)
-            print("[ZenyDesk] Injected ZenyDesk sovereign servers & branding into hbb_common.")
+            print("[ZenyDesk] Injected ZenyDesk sovereign servers & branding into hbb_common.", file=sys.stderr)
         except Exception as e:
-            print("[ZenyDesk] Warning applying config to hbb_common:", e)
+            print("[ZenyDesk] Warning applying config to hbb_common:", e, file=sys.stderr)
 
 
-# Automatically apply ZenyDesk branding & server config on build script execution
-apply_zenydesk_config()
 
 
 def get_deb_arch() -> str:
