@@ -1,5 +1,6 @@
 <p align="center">
-  <img src="res/logo-header.svg" alt="RustDesk - Your remote desktop"><br>
+ <img width="998" height="250" alt="logo-Zenydesk-sem-fundo" src="https://github.com/user-attachments/assets/dc6cc4f7-1746-4805-8916-c2ae8745b380" />
+
   <a href="#raw-steps-to-build">Build</a> •
   <a href="#how-to-build-with-docker">Docker</a> •
   <a href="#file-structure">Structure</a> •
